@@ -3,7 +3,7 @@
 #include <set>
 
 template <typename K, typename V>
-class Hash {
+class map {
 private:
 
 	K Key;
@@ -12,7 +12,7 @@ private:
 	std::vector<std::pair<K, V>>Vec;
 
 public:
-	void insert(K key, V value) {
+	void insert(K const &key, V const &value) {
 		std::pair<K, V>pr;
 		pr.first = key;
 		pr.second = value;
@@ -20,16 +20,14 @@ public:
 		Vec.push_back(pr);
 	}
 
-	void print(K key) {
+	void print(K const &key) {
 
 		std::set<std::pair<K, V>>st;
 
-		for (int i = 0; i < Vec.size(); i++) { st.insert(Vec[i]); }
+		for (int i = 0; i < Vec.size(); i++) { st.emplace(Vec[i]); }
 		Vec.clear();
-
-		for (auto el : st) {
-			Vec.push_back(el);
-		}
+	
+		for (auto el : st) {Vec.push_back(el);}
 		st.clear();
 
 		for (int i = 0; i < Vec.size(); i++) {
@@ -41,9 +39,7 @@ public:
 	}
 
 	void ShowALL() {
-		for (int i = 0; i < Vec.size(); i++) {
-			std::cout << " Key: " << Vec[i].first << " Value: " << Vec[i].second << std::endl;
-		}
+		for (int i = 0; i < Vec.size(); i++) { std::cout << " Key: " << Vec[i].first << " Value: " << Vec[i].second << std::endl;}
 	}
 
 };
@@ -51,17 +47,18 @@ public:
 
 int main() {
 
-	Hash<std::string, int>hs;
-	hs.insert("Hello", 7);
-	hs.insert("Asio", 12);
-	hs.insert("Boo", 18);
-	hs.insert("Fill", 17);
-	hs.insert("Cool", 17);
-	hs.insert("Cpp", 23);
-	hs.print("Cpp");
+	map<std::string, int>mp;
+	mp.insert("Hello", 7);
+	mp.insert("Asio", 12);
+	mp.insert("Boo", 18);
+	mp.insert("Fill", 17);
+	mp.insert("Cool", 17);
+	mp.insert("Cpp", 23);
+
+	mp.print("Cpp");
 
 
-	hs.ShowALL();
+	mp.ShowALL();
 	
 	
 }
